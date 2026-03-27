@@ -101,5 +101,18 @@
     "device": "Ultimate WhatsApp Solution",
     "location": "Browser Automation",
     "attachment": false
+  },
+  {
+    "id": "bb43a678-3ad8-4d47-b39a-74de4621315b",
+    "from": "8660444809",
+    "to": "8660444809",
+    "message": "Thank you for reaching out to support. I'm here to help you with any questions.",
+    "direction": "outbound",
+    "messageType": "custom",
+    "ai_enhanced": false,
+    "device": "Enterprise WhatsApp Platform",
+    "location": "Web Dashboard",
+    "attachment": "WhatsApp Image 2026-03-12 at 16.47.23 (2).jpeg",
+    "timestamp": "2026-03-27T11:04:47.256Z"
   }
 ]

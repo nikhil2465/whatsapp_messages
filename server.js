@@ -9,7 +9,7 @@ const cors = require('cors');
 const multer = require('multer');
 const { v4: uuidv4 } = require('uuid');
 
-class HybridWhatsAppPlatform {
+class EnterpriseWhatsAppPlatform {
     constructor() {
         this.app = express();
         this.server = http.createServer(this.app);
@@ -22,7 +22,7 @@ class HybridWhatsAppPlatform {
         
         // Configuration
         this.businessPhone = process.env.BUSINESS_PHONE || '8660444809';
-        this.businessName = process.env.BUSINESS_NAME || 'Your Business';
+        this.businessName = process.env.BUSINESS_NAME || 'Enterprise Business';
         this.sheetId = process.env.GOOGLE_SHEET_ID || '1sKx-ooy2BJvt1dZMn0KSMN3XGTThz7I_DUtpBeiMIRY';
         this.sheetName = process.env.GOOGLE_SHEET_NAME || 'WhatsApp_Messages';
         this.port = process.env.PORT || 3000;
@@ -152,9 +152,9 @@ class HybridWhatsAppPlatform {
     }
     
     setupRoutes() {
-        // Serve ultimate dashboard
+        // Serve professional dashboard
         this.app.get('/', (req, res) => {
-            res.sendFile(path.join(__dirname, 'public', 'ultimate_dashboard.html'));
+            res.sendFile(path.join(__dirname, 'public', 'professional_dashboard.html'));
         });
         
         // Python AI Integration endpoints
@@ -173,39 +173,39 @@ class HybridWhatsAppPlatform {
             }
         });
 
-        // Launch Ultimate WhatsApp endpoint
-        this.app.post('/api/launch-ultimate', async (req, res) => {
+        // Launch Enterprise WhatsApp endpoint
+        this.app.post('/api/launch-enterprise', async (req, res) => {
             try {
                 const { spawn } = require('child_process');
-                console.log('🚀 Launching Ultimate WhatsApp Solution...');
+                console.log('🚀 Launching Enterprise WhatsApp Platform...');
                 
-                // Launch Ultimate WhatsApp script
-                const pythonProcess = spawn('python', ['ultimate_solution.py'], {
+                // Launch Enterprise WhatsApp script
+                const pythonProcess = spawn('python', ['whatsapp_automation_engine.py'], {
                     cwd: __dirname,
                     stdio: 'inherit'
                 });
                 
                 pythonProcess.on('spawn', () => {
-                    console.log('✅ Ultimate WhatsApp Solution launched');
+                    console.log('✅ Enterprise WhatsApp Platform launched');
                     this.pythonConnected = true;
                     this.aiEnabled = true;
-                    this.io.emit('ultimate-launched', { success: true });
-                    res.json({ success: true, message: 'Ultimate WhatsApp Solution launched' });
+                    this.io.emit('enterprise-launched', { success: true });
+                    res.json({ success: true, message: 'Enterprise WhatsApp Platform launched' });
                 });
                 
                 pythonProcess.on('error', (error) => {
-                    console.error('❌ Error launching Ultimate WhatsApp:', error);
+                    console.error('❌ Error launching Enterprise WhatsApp:', error);
                     res.status(500).json({ success: false, error: error.message });
                 });
                 
                 pythonProcess.on('close', (code) => {
-                    console.log(`🐍 Ultimate WhatsApp process exited with code ${code}`);
+                    console.log(`🐍 Enterprise WhatsApp process exited with code ${code}`);
                     this.pythonConnected = false;
-                    this.io.emit('ultimate-disconnected');
+                    this.io.emit('enterprise-disconnected');
                 });
                 
             } catch (error) {
-                console.error('❌ Error launching Ultimate WhatsApp:', error);
+                console.error('❌ Error launching Enterprise WhatsApp:', error);
                 res.status(500).json({ success: false, error: error.message });
             }
         });
@@ -504,12 +504,36 @@ class HybridWhatsAppPlatform {
         console.log(`🤖 Python AI Integration: Ready`);
         console.log(`🔧 Google Services: ${this.googleEnabled ? 'Enabled' : 'Disabled'}`);
         
+        this.app.get('/health', (req, res) => {
+            res.json({
+                status: 'healthy',
+                platform: 'Enterprise WhatsApp Communication Platform',
+                version: '8.0.0',
+                timestamp: new Date().toISOString(),
+                services: {
+                    server: true,
+                    google: this.googleEnabled,
+                    python: this.pythonConnected,
+                    ai: this.aiEnabled
+                }
+            });
+        });
+
         this.server.listen(this.port, () => {
-            console.log(`✅ Server running on port ${this.port}`);
+            console.log('\n' + '='*80);
+            console.log('🏢 ENTERPRISE WHATSAPP COMMUNICATION PLATFORM');
+            console.log('='*80);
+            console.log(`📞 Business Number: ${this.businessPhone}`);
+            console.log(`🏢 Business Name: ${this.businessName}`);
+            console.log(`🌐 Server: http://localhost:${this.port}`);
+            console.log(`📊 Dashboard: http://localhost:${this.port}/`);
+            console.log(`🤖 AI Automation: ${this.aiEnabled ? 'Enabled' : 'Disabled'}`);
+            console.log(`📈 Google Sheets: ${this.googleEnabled ? 'Connected' : 'Disconnected'}`);
+            console.log('='*80);
         });
     }
 }
 
-// Start hybrid platform
-const platform = new HybridWhatsAppPlatform();
+// Start enterprise platform
+const platform = new EnterpriseWhatsAppPlatform();
 platform.start().catch(console.error);
