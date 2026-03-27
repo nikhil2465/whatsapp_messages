@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Ultimate WhatsApp Business Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #25D366;
+            --secondary-color: #128C7E;
+            --accent-color: #075E54;
+            --light-bg: #ECE5DD;
+            --dark-text: #111B21;
+            --white: #FFFFFF;
+            --gray: #8696A0;
+            --success: #25D366;
+            --warning: #FFA500;
+            --error: #DC3545;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: var(--dark-text);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: var(--gray);
+            font-size: 1.1rem;
+        }
+
+        .main-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .panel:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+
+        .panel h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .status-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .status-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            opacity: 0.9;
+        }
+
+        .status-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #054d44;
+            transform: translateY(-2px);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark-text);
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #E1E1E1;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .file-upload {
+            position: relative;
+            display: inline-block;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .file-upload input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .file-upload label {
+            display: block;
+            padding: 12px;
+            background: var(--light-bg);
+            border: 2px dashed var(--gray);
+            border-radius: 8px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload label:hover {
+            border-color: var(--primary-color);
+            background: rgba(37, 211, 102, 0.1);
+        }
+
+        .message-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #E1E1E1;
+            border-radius: 8px;
+            padding: 15px;
+        }
+
+        .message-item {
+            background: var(--light-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+
+        .message-direction {
+            font-weight: bold;
+            color: var(--accent-color);
+        }
+
+        .message-time {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+
+        .message-content {
+            color: var(--dark-text);
+        }
+
+        .attachment-indicator {
+            color: var(--primary-color);
+            font-weight: bold;
+            margin-top: 5px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .alert-success {
+            background: rgba(37, 211, 102, 0.1);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .alert-error {
+            background: rgba(220, 53, 69, 0.1);
+            color: var(--error);
+            border: 1px solid var(--error);
+        }
+
+        .alert-info {
+            background: rgba(0, 123, 255, 0.1);
+            color: #007BFF;
+            border: 1px solid #007BFF;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #E1E1E1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .feature-list li:last-child {
+            border-bottom: none;
+        }
+
+        .feature-icon {
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .main-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .status-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🚀 Ultimate WhatsApp Business Platform</h1>
+            <p>World's Best WhatsApp Automation with Selenium + Real Web Integration</p>
+            <p><strong>Business Number: 8660444809</strong></p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalMessages">0</div>
+                <div class="stat-label">Total Messages</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="sentMessages">0</div>
+                <div class="stat-label">Messages Sent</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="receivedMessages">0</div>
+                <div class="stat-label">Messages Received</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="attachmentCount">0</div>
+                <div class="stat-label">Attachments Sent</div>
+            </div>
+        </div>
+
+        <div class="main-grid">
+            <div class="panel">
+                <h2>🚀 Ultimate WhatsApp Automation</h2>
+                
+                <div class="status-grid">
+                    <div class="status-card">
+                        <h3>Automation Status</h3>
+                        <div class="status-value" id="automationStatus">Not Started</div>
+                    </div>
+                    <div class="status-card">
+                        <h3>Smart Templates</h3>
+                        <div class="status-value">9 Available</div>
+                    </div>
+                </div>
+
+                <div class="feature-list">
+                    <li>
+                        <span class="feature-icon">🤖</span>
+                        <span>Selenium + WhatsApp Web API</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">📎</span>
+                        <span>Full Attachment Support</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🧠</span>
+                        <span>Smart Template Responses</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">📊</span>
+                        <span>Real-time Server Logging</span>
+                    </li>
+                    <li>
+                        <span class="feature-icon">🌐</span>
+                        <span>Real Automation - No Manual Steps</span>
+                    </li>
+                </div>
+
+                <button class="btn btn-primary" id="launchBtn" onclick="launchUltimate()">
+                    🚀 Launch Ultimate WhatsApp
+                </button>
+
+                <div id="launchResult"></div>
+            </div>
+
+            <div class="panel">
+                <h2>📤 Quick Message Sender</h2>
+                
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number:</label>
+                    <input type="text" id="phoneNumber" placeholder="+1234567890" value="+1234567890">
+                </div>
+
+                <div class="form-group">
+                    <label for="messageType">Message Type:</label>
+                    <select id="messageType">
+                        <option value="custom">Custom Message</option>
+                        <option value="greeting">👋 Greeting</option>
+                        <option value="support">💬 Support</option>
+                        <option value="price">💰 Pricing</option>
+                        <option value="appointment">📅 Appointment</option>
+                        <option value="thankyou">🙏 Thank You</option>
+                        <option value="promotion">🎉 Promotion</option>
+                        <option value="meeting">🤝 Meeting</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="messageContent">Message:</label>
+                    <textarea id="messageContent" placeholder="Enter your message here...">Hello! Thank you for contacting us. How can I assist you today?</textarea>
+                </div>
+
+                <div class="form-group">
+                    <div class="file-upload">
+                        <input type="file" id="attachmentFile" onchange="handleFileSelect(this)">
+                        <label for="attachmentFile">
+                            📎 Click to attach file (optional)
+                        </label>
+                    </div>
+                    <div id="fileName" style="margin-top: 10px; color: var(--gray);"></div>
+                </div>
+
+                <button class="btn btn-primary" onclick="sendMessage()">
+                    📤 Send Message
+                </button>
+
+                <div id="sendResult"></div>
+            </div>
+        </div>
+
+        <div class="panel">
+            <h2>📋 Recent Messages</h2>
+            <div class="message-list" id="messageList">
+                <div style="text-align: center; color: var(--gray); padding: 40px;">
+                    No messages yet. Start sending messages to see them here.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        let automationRunning = false;
+        let messages = [];
+
+        // Socket event handlers
+        socket.on('ultimate-launched', (data) => {
+            automationRunning = true;
+            updateAutomationStatus('Running');
+            showAlert('launchResult', '🚀 Ultimate WhatsApp Solution launched successfully!', 'success');
+            document.getElementById('launchBtn').innerHTML = '✅ Ultimate WhatsApp Running';
+            document.getElementById('launchBtn').disabled = true;
+        });
+
+        socket.on('ultimate-disconnected', () => {
+            automationRunning = false;
+            updateAutomationStatus('Disconnected');
+            showAlert('launchResult', '⚠️ Ultimate WhatsApp Solution disconnected', 'error');
+            document.getElementById('launchBtn').innerHTML = '🚀 Launch Ultimate WhatsApp';
+            document.getElementById('launchBtn').disabled = false;
+        });
+
+        socket.on('message-stored', (message) => {
+            addMessageToList(message);
+            updateStats();
+        });
+
+        // API functions
+        async function launchUltimate() {
+            const btn = document.getElementById('launchBtn');
+            btn.innerHTML = '<span class="loading"></span> Launching...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/launch-ultimate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+                
+                if (data.success) {
+                    showAlert('launchResult', '🚀 Ultimate WhatsApp Solution launching...', 'info');
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (error) {
+                showAlert('launchResult', `❌ Error: ${error.message}`, 'error');
+                btn.innerHTML = '🚀 Launch Ultimate WhatsApp';
+                btn.disabled = false;
+            }
+        }
+
+        function handleFileSelect(input) {
+            const fileName = document.getElementById('fileName');
+            if (input.files.length > 0) {
+                fileName.textContent = `📎 Selected: ${input.files[0].name}`;
+            } else {
+                fileName.textContent = '';
+            }
+        }
+
+        async function sendMessage() {
+            const phone = document.getElementById('phoneNumber').value;
+            const messageType = document.getElementById('messageType').value;
+            const messageContent = document.getElementById('messageContent').value;
+            const attachmentFile = document.getElementById('attachmentFile').files[0];
+
+            if (!phone) {
+                showAlert('sendResult', '❌ Please enter a phone number', 'error');
+                return;
+            }
+
+            if (!messageContent) {
+                showAlert('sendResult', '❌ Please enter a message', 'error');
+                return;
+            }
+
+            const messageData = {
+                from: "8660444809",
+                to: phone,
+                message: messageContent,
+                direction: 'outbound',
+                messageType: messageType,
+                ai_enhanced: messageType !== 'custom',
+                device: 'Ultimate WhatsApp Platform',
+                location: 'Web Dashboard',
+                attachment: attachmentFile ? attachmentFile.name : null
+            };
+
+            try {
+                const response = await fetch('/api/store-message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(messageData)
+                });
+
+                if (response.ok) {
+                    // Open WhatsApp Web with pre-filled message
+                    const cleanPhone = phone.replace('+', '').replace(' ', '').replace('-', '');
+                    const whatsappUrl = `https://web.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(messageContent)}`;
+                    window.open(whatsappUrl, '_blank');
+                    
+                    showAlert('sendResult', '📤 Message prepared! WhatsApp Web opened with your message ready to send.', 'success');
+                    
+                    // Clear form
+                    document.getElementById('messageContent').value = 'Hello! Thank you for contacting us. How can I assist you today?';
+                    document.getElementById('attachmentFile').value = '';
+                    document.getElementById('fileName').textContent = '';
+                } else {
+                    throw new Error('Failed to store message');
+                }
+            } catch (error) {
+                showAlert('sendResult', `❌ Error: ${error.message}`, 'error');
+            }
+        }
+
+        // Message type handler
+        document.getElementById('messageType').addEventListener('change', function() {
+            const templates = {
+                greeting: "Hello! Thank you for contacting us. How can I assist you today?",
+                support: "Thank you for reaching out to support. I'm here to help you with any questions.",
+                appointment: "Thank you for your interest! I'd be happy to schedule an appointment for you.",
+                price: "Thank you for your inquiry about our services. Here are our current pricing options:",
+                thankyou: "Thank you for your business! We truly appreciate your trust in our services.",
+                promotion: "Great news! We have special offers available this week. Would you like to know more?",
+                meeting: "I'd be happy to schedule a meeting. What day and time works best for you?"
+            };
+
+            const messageContent = document.getElementById('messageContent');
+            if (this.value !== 'custom' && templates[this.value]) {
+                messageContent.value = templates[this.value];
+            }
+        });
+
+        // Utility functions
+        function updateAutomationStatus(status) {
+            document.getElementById('automationStatus').textContent = status;
+        }
+
+        function showAlert(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            element.innerHTML = `<div class="alert alert-${type}">${message}</div>`;
+            setTimeout(() => {
+                element.innerHTML = '';
+            }, 5000);
+        }
+
+        function addMessageToList(message) {
+            messages.push(message);
+            const messageList = document.getElementById('messageList');
+            
+            const directionEmoji = message.direction === 'outbound' ? '📤' : '📥';
+            const attachmentIndicator = message.attachment ? '<div class="attachment-indicator">📎 Attachment: ' + message.attachment + '</div>' : '';
+            
+            const messageHTML = `
+                <div class="message-item">
+                    <div class="message-header">
+                        <span class="message-direction">${directionEmoji} ${message.from} → ${message.to}</span>
+                        <span class="message-time">${new Date(message.timestamp).toLocaleString()}</span>
+                    </div>
+                    <div class="message-content">${message.message}</div>
+                    ${attachmentIndicator}
+                </div>
+            `;
+            
+            messageList.insertAdjacentHTML('afterbegin', messageHTML);
+            
+            // Keep only last 10 messages visible
+            const items = messageList.querySelectorAll('.message-item');
+            if (items.length > 10) {
+                items[items.length - 1].remove();
+            }
+        }
+
+        function updateStats() {
+            const totalMessages = messages.length;
+            const sentMessages = messages.filter(m => m.direction === 'outbound').length;
+            const receivedMessages = messages.filter(m => m.direction === 'inbound').length;
+            const attachmentCount = messages.filter(m => m.attachment).length;
+
+            document.getElementById('totalMessages').textContent = totalMessages;
+            document.getElementById('sentMessages').textContent = sentMessages;
+            document.getElementById('receivedMessages').textContent = receivedMessages;
+            document.getElementById('attachmentCount').textContent = attachmentCount;
+        }
+
+        // Load initial messages
+        async function loadMessages() {
+            try {
+                const response = await fetch('/api/messages');
+                if (response.ok) {
+                    messages = await response.json();
+                    messages.reverse().forEach(msg => addMessageToList(msg));
+                    updateStats();
+                }
+            } catch (error) {
+                console.error('Error loading messages:', error);
+            }
+        }
+
+        // Initialize
+        loadMessages();
+        updateAutomationStatus('Not Started');
+    </script>
+</body>
+</html>
