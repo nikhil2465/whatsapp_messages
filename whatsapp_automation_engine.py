@@ -16,6 +16,7 @@ from datetime import datetime
 from pathlib import Path
 import subprocess
 import threading
+import csv
 
 class EnterpriseWhatsAppAutomation:
     """Enterprise WhatsApp Communication Platform - World's Best Method"""
@@ -236,7 +237,9 @@ class EnterpriseWhatsAppAutomation:
         print("5. 📊 Check System Status")
         print("6. 📋 View Recent Messages")
         print("7. 🌐 Open WhatsApp Web")
-        print("8. ❌ Exit")
+        print("8. 🎯 Bulk Message Send")
+        print("9. 🧠 Bulk Message with Template")
+        print("10. ❌ Exit")
         print("="*60)
     
     def show_status(self):
@@ -252,6 +255,7 @@ class EnterpriseWhatsAppAutomation:
         print(f"🌐 Browser: Default System Browser")
         print(f"🚀 Driver Issues: None")
         print(f"🏢 Platform: Enterprise-Grade")
+        print(f"🎯 Bulk Messaging: World's Best Method")
         print("="*60)
     
     def view_recent_messages(self):
@@ -311,6 +315,98 @@ class EnterpriseWhatsAppAutomation:
             except Exception as e:
                 print(f"❌ Error: {e}")
     
+    def load_contacts_from_file(self, file_path: str):
+        """Load contacts from CSV or TXT file"""
+        contacts = []
+        try:
+            if file_path.endswith('.csv'):
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    reader = csv.reader(file)
+                    for row in reader:
+                        if row and len(row) > 0:
+                            phone = row[0].strip()
+                            if phone and phone.startswith('+'):
+                                contacts.append(phone)
+            elif file_path.endswith('.txt'):
+                with open(file_path, 'r', encoding='utf-8') as file:
+                    for line in file:
+                        phone = line.strip()
+                        if phone and phone.startswith('+'):
+                            contacts.append(phone)
+            
+            print(f"✅ Loaded {len(contacts)} contacts from {file_path}")
+            return contacts
+        except Exception as e:
+            print(f"❌ Error loading contacts: {e}")
+            return []
+    
+    def validate_phone_numbers(self, phone_numbers):
+        """Validate and clean phone numbers"""
+        valid_numbers = []
+        invalid_numbers = []
+        
+        for phone in phone_numbers:
+            clean_phone = phone.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
+            if not clean_phone.startswith('+'):
+                clean_phone = '+' + clean_phone
+            
+            if len(clean_phone) >= 10 and len(clean_phone) <= 15 and clean_phone[1:].isdigit():
+                valid_numbers.append(clean_phone)
+            else:
+                invalid_numbers.append(phone)
+        
+        print(f"📊 Phone Validation: {len(valid_numbers)} valid, {len(invalid_numbers)} invalid")
+        return valid_numbers, invalid_numbers
+    
+    def send_bulk_messages(self, contacts, message, attachment_path=None, delay=2):
+        """Send bulk messages to all contacts with optional attachment"""
+        print(f"\n🎯 Starting Bulk Message Send")
+        print(f"👥 Contacts: {len(contacts)}")
+        print(f"📎 Attachment: {attachment_path or 'None'}")
+        print(f"⏱️ Delay: {delay} seconds between sends")
+        print("="*60)
+        
+        success_count = 0
+        failed_count = 0
+        
+        for i, contact in enumerate(contacts, 1):
+            try:
+                print(f"\n📤 [{i}/{len(contacts)}] Sending to {contact}")
+                
+                # Send message with attachment
+                success = self.send_message_real(contact, message, attachment_path)
+                
+                if success:
+                    success_count += 1
+                    print(f"   ✅ Success: {contact}")
+                else:
+                    failed_count += 1
+                    print(f"   ❌ Failed: {contact}")
+                
+                # Rate limiting to prevent WhatsApp blocking
+                if i < len(contacts):
+                    print(f"   ⏱️ Waiting {delay} seconds...")
+                    time.sleep(delay)
+                    
+            except KeyboardInterrupt:
+                print(f"\n⏸️ Bulk send interrupted by user at {i}/{len(contacts)}")
+                break
+            except Exception as e:
+                failed_count += 1
+                print(f"   ❌ Error with {contact}: {e}")
+        
+        # Print summary
+        print("\n" + "="*60)
+        print("📊 BULK SEND SUMMARY")
+        print("="*60)
+        print(f"📤 Total Contacts: {len(contacts)}")
+        print(f"✅ Successful: {success_count}")
+        print(f"❌ Failed: {failed_count}")
+        print(f"📈 Success Rate: {(success_count/len(contacts)*100):.1f}%")
+        print("="*60)
+        
+        return success_count, failed_count
+    
     def interactive_mode(self):
         """Enterprise interactive mode"""
         print("\n🏢 Starting Enterprise WhatsApp Platform...")
@@ -324,7 +420,7 @@ class EnterpriseWhatsAppAutomation:
             try:
                 self.show_menu()
                 
-                choice = input("\n👉 Enter your choice (1-8): ").strip()
+                choice = input("\n👉 Enter your choice (1-10): ").strip()
                 
                 if choice == "1":
                     # Send message with enterprise smart response
@@ -353,18 +449,12 @@ class EnterpriseWhatsAppAutomation:
                     message = self.get_user_input("💬 Enter message")
                     if not message: continue
                     
-                    attachment = input("\n📎 Enter attachment file path (or press Enter to skip): ").strip()
-                    
-                    if attachment and not os.path.exists(attachment):
-                        print(f"❌ File not found: {attachment}")
-                        input("👉 Press Enter to continue...")
+                    attachment_path = self.get_user_input("📎 Enter attachment file path (or press Enter to skip)")
+                    if attachment_path and not os.path.exists(attachment_path):
+                        print(f"❌ File not found: {attachment_path}")
                         continue
                     
-                    if attachment:
-                        success = self.send_attachment_enhanced(phone, message, attachment)
-                    else:
-                        success = self.send_message_real(phone, message)
-                    
+                    success = self.send_message_real(phone, message, attachment_path)
                     if success:
                         print("✅ Message with attachment sent successfully!")
                     else:
@@ -385,23 +475,22 @@ class EnterpriseWhatsAppAutomation:
                         print("❌ Failed to send message")
                 
                 elif choice == "4":
-                    # Generate smart response only
-                    message = self.get_user_input("💬 Enter message for smart response")
-                    if not message: continue
+                    # Generate enterprise smart response only
+                    customer_message = self.get_user_input("💬 Enter customer message")
+                    if not customer_message: continue
                     
-                    smart_response = self.get_smart_response(message)
-                    print(f"\n🧠 Smart Response: {smart_response}")
-                    input("\n👉 Press Enter to continue...")
+                    smart_response = self.get_smart_response(customer_message)
+                    print(f"\n🧠 Enterprise Smart Response: {smart_response}")
+                    print("\n📋 This response has been copied to clipboard!")
+                    pyperclip.copy(smart_response)
                 
                 elif choice == "5":
-                    # Check status
+                    # Check system status
                     self.show_status()
-                    input("\n👉 Press Enter to continue...")
                 
                 elif choice == "6":
                     # View recent messages
                     self.view_recent_messages()
-                    input("\n👉 Press Enter to continue...")
                 
                 elif choice == "7":
                     # Open WhatsApp Web
@@ -410,13 +499,133 @@ class EnterpriseWhatsAppAutomation:
                     input("\n👉 Press Enter to continue...")
                 
                 elif choice == "8":
+                    # Bulk Message Send
+                    print("\n🎯 BULK MESSAGE SEND")
+                    print("="*50)
+                    
+                    # Get contacts
+                    contacts_input = self.get_user_input("📥 Enter contacts (comma-separated) or file path (.csv/.txt)")
+                    if not contacts_input: continue
+                    
+                    if os.path.exists(contacts_input):
+                        contacts = self.load_contacts_from_file(contacts_input)
+                    else:
+                        contacts = [phone.strip() for phone in contacts_input.split(',') if phone.strip()]
+                        contacts, invalid = self.validate_phone_numbers(contacts)
+                        if invalid:
+                            print(f"⚠️ Invalid numbers: {invalid}")
+                    
+                    if not contacts:
+                        print("❌ No valid contacts found")
+                        continue
+                    
+                    # Get message
+                    message = self.get_user_input("💬 Enter message to send to all contacts")
+                    if not message: continue
+                    
+                    # Get attachment (optional)
+                    attachment_path = self.get_user_input("📎 Enter attachment file path (optional, press Enter to skip)")
+                    if attachment_path and not os.path.exists(attachment_path):
+                        print(f"❌ File not found: {attachment_path}")
+                        attachment_path = None
+                    
+                    # Get delay
+                    delay_input = self.get_user_input("⏱️ Enter delay between sends (seconds, default=2)")
+                    try:
+                        delay = int(delay_input) if delay_input else 2
+                    except:
+                        delay = 2
+                    
+                    # Confirm bulk send
+                    print(f"\n📊 Ready to send to {len(contacts)} contacts")
+                    print(f"📝 Message: {message[:50]}{'...' if len(message) > 50 else ''}")
+                    print(f"📎 Attachment: {attachment_path or 'None'}")
+                    print(f"⏱️ Delay: {delay} seconds")
+                    
+                    confirm = input("\n📤 Proceed with bulk send? (y/n): ").strip().lower()
+                    if confirm == 'y':
+                        self.send_bulk_messages(contacts, message, attachment_path, delay)
+                    else:
+                        print("❌ Bulk send cancelled")
+                
+                elif choice == "9":
+                    # Bulk Message with Template
+                    print("\n🎯 BULK MESSAGE WITH TEMPLATE")
+                    print("="*50)
+                    
+                    # Get contacts
+                    contacts_input = self.get_user_input("📥 Enter contacts (comma-separated) or file path (.csv/.txt)")
+                    if not contacts_input: continue
+                    
+                    if os.path.exists(contacts_input):
+                        contacts = self.load_contacts_from_file(contacts_input)
+                    else:
+                        contacts = [phone.strip() for phone in contacts_input.split(',') if phone.strip()]
+                        contacts, invalid = self.validate_phone_numbers(contacts)
+                        if invalid:
+                            print(f"⚠️ Invalid numbers: {invalid}")
+                    
+                    if not contacts:
+                        print("❌ No valid contacts found")
+                        continue
+                    
+                    # Select template
+                    print("\n🧠 Available Templates:")
+                    for i, (key, template) in enumerate(self.templates.items(), 1):
+                        print(f"   {i}. {key}: {template[:30]}{'...' if len(template) > 30 else ''}")
+                    
+                    template_choice = input("\n👉 Select template (1-9) or 'custom': ").strip()
+                    if template_choice == 'custom':
+                        message = self.get_user_input("💬 Enter custom message")
+                    else:
+                        try:
+                            template_index = int(template_choice) - 1
+                            template_keys = list(self.templates.keys())
+                            if 0 <= template_index < len(template_keys):
+                                template_key = template_keys[template_index]
+                                message = self.templates[template_key]
+                                print(f"🧠 Selected template: {template_key}")
+                            else:
+                                print("❌ Invalid template choice")
+                                continue
+                        except:
+                            print("❌ Invalid template choice")
+                            continue
+                    
+                    # Get attachment (optional)
+                    attachment_path = self.get_user_input("📎 Enter attachment file path (optional, press Enter to skip)")
+                    if attachment_path and not os.path.exists(attachment_path):
+                        print(f"❌ File not found: {attachment_path}")
+                        attachment_path = None
+                    
+                    # Get delay
+                    delay_input = self.get_user_input("⏱️ Enter delay between sends (seconds, default=3)")
+                    try:
+                        delay = int(delay_input) if delay_input else 3
+                    except:
+                        delay = 2
+                    
+                    # Confirm bulk send
+                    print(f"\n📊 Ready to send to {len(contacts)} contacts")
+                    print(f"🧠 Template: {template_choice}")
+                    print(f"📝 Message: {message[:50]}{'...' if len(message) > 50 else ''}")
+                    print(f"📎 Attachment: {attachment_path or 'None'}")
+                    print(f"⏱️ Delay: {delay} seconds")
+                    
+                    confirm = input("\n📤 Proceed with bulk template send? (y/n): ").strip().lower()
+                    if confirm == 'y':
+                        self.send_bulk_messages(contacts, message, attachment_path, delay)
+                    else:
+                        print("❌ Bulk template send cancelled")
+                
+                elif choice == "10":
                     # Exit
                     print("\n👋 Thank you for using Enterprise WhatsApp Platform!")
                     print("📊 All messages have been logged to the server")
                     break
                 
                 else:
-                    print("❌ Invalid choice. Please enter 1-8")
+                    print("❌ Invalid choice. Please enter 1-10")
                     input("👉 Press Enter to continue...")
                     
             except KeyboardInterrupt:

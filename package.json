@@ -8,8 +8,6 @@
     "dev": "nodemon server.js",
     "automation": "python whatsapp_automation_engine.py",
     "platform-manager": "python platform_manager.py",
-    "attachment-handler": "python attachment_handler.py",
-    "bulk-sender": "python bulk_attachment_sender.py",
     "restore-original": "git reset --hard origin/master && echo '✅ Restored to original state!'",
     "save-to-original": "git add . && git commit -m 'Platform updates' && git push origin master && echo '✅ Saved to original!'",
     "platform-status": "git status && echo '📊 Platform status checked!'",

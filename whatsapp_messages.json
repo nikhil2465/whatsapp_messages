@@ -114,5 +114,80 @@
     "location": "Web Dashboard",
     "attachment": "WhatsApp Image 2026-03-12 at 16.47.23 (2).jpeg",
     "timestamp": "2026-03-27T11:04:47.256Z"
+  },
+  {
+    "id": "64139984-ef7b-43da-aa73-79592685fad9",
+    "from": "8660444809",
+    "to": "+918660444809",
+    "message": "Hello! Thank you for contacting us. How can I assist you today?",
+    "direction": "outbound",
+    "messageType": "custom",
+    "ai_enhanced": false,
+    "device": "Professional WhatsApp Platform",
+    "location": "Web Dashboard",
+    "attachment": "WhatsApp Image 2026-03-12 at 16.47.23 (2).jpeg",
+    "timestamp": "2026-03-27T12:46:08.328Z"
+  },
+  {
+    "id": "15fe98d2-5612-4355-ad0d-52e393295ba3",
+    "from": "8660444809",
+    "to": "+918660444809",
+    "message": "hi",
+    "direction": "outbound",
+    "timestamp": "2026-03-27T18:21:59.204728",
+    "ai_enhanced": true,
+    "device": "Ultimate WhatsApp Solution",
+    "location": "Browser Automation",
+    "attachment": true
+  },
+  {
+    "id": "4afe4b2f-7450-4677-8289-220cd67ea0fd",
+    "from": "8660444809",
+    "to": "8660444809",
+    "message": "Hello! Thank you for contacting us. How can I assist you today?",
+    "direction": "outbound",
+    "messageType": "custom",
+    "ai_enhanced": false,
+    "device": "Professional WhatsApp Platform",
+    "location": "Web Dashboard",
+    "attachment": "WhatsApp Image 2026-03-12 at 16.47.23 (2).jpeg",
+    "timestamp": "2026-03-28T08:19:52.640Z"
+  },
+  {
+    "id": "feaa9633-94ba-4f23-8b1e-f396c81a85ec",
+    "from": "8660444809",
+    "to": "+918660444809",
+    "message": "hi",
+    "direction": "outbound",
+    "timestamp": "2026-03-28T13:54:21.597857",
+    "ai_enhanced": true,
+    "device": "Ultimate WhatsApp Solution",
+    "location": "Browser Automation",
+    "attachment": false
+  },
+  {
+    "id": "dd20b901-3993-4169-8315-602ce75ec034",
+    "from": "8660444809",
+    "to": "+918660444809",
+    "message": "hi",
+    "direction": "outbound",
+    "timestamp": "2026-03-28T13:57:02.495605",
+    "ai_enhanced": true,
+    "device": "Ultimate WhatsApp Solution",
+    "location": "Browser Automation",
+    "attachment": true
+  },
+  {
+    "id": "6b215cdb-8f63-4536-a7c0-ef1ea3a568af",
+    "from": "8660444809",
+    "to": "8660444809",
+    "message": "Hello! Thank you for contacting us. How can I assist you today?",
+    "direction": "outbound",
+    "messageType": "custom",
+    "ai_enhanced": false,
+    "device": "Professional WhatsApp Platform",
+    "location": "Web Dashboard",
+    "attachment": "WhatsApp Image 2026-03-12 at 16.47.23 (2).jpeg",
+    "timestamp": "2026-03-29T20:57:55.496Z"
   }
 ]
